@@ -22,19 +22,24 @@ void printList(Node *head)
     }
 }
 
-Node *revList(Node *head)
+Node *reverseK(Node *head, int k)
 {
-    // Base case
-    if (head == NULL || head->next == NULL)
+    Node *curr = head, *next = NULL, *prev = NULL;
+    int count = 0;
+    while (curr != NULL && count < k)
     {
-        return head;
+        next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+        count++;
     }
-
-    Node *rest_head = revList(head->next);
-    Node *rest_tail = head->next;
-    rest_tail->next = head;
-    head->next = NULL;
-    return rest_head;
+    if (next != NULL)
+    {
+        Node *rest_head = reverseK(next, k);
+        head->next = rest_head;
+    }
+    return prev;
 }
 
 int main()
@@ -43,7 +48,8 @@ int main()
     head->next = new Node(20);
     head->next->next = new Node(30);
     head->next->next->next = new Node(40);
-    Node *res = revList(head);
-    printList(res);
+    head->next->next->next->next = new Node(50);
+    Node *new_head = reverseK(head, 5);
+    printList(new_head);
     return 0;
 }

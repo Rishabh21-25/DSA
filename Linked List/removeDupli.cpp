@@ -22,28 +22,31 @@ void printList(Node *head)
     }
 }
 
-Node *revList(Node *head)
+void RemoveDupli(Node *head)
 {
-    // Base case
-    if (head == NULL || head->next == NULL)
+    Node *curr = head;
+    while (curr != NULL && curr->next != NULL)
     {
-        return head;
+        if (curr->data = curr->next->data)
+        {
+            Node *temp = curr->next;
+            curr->next = curr->next->next;
+            delete (temp);
+        }
+        else
+        {
+            curr = curr->next;
+        }
     }
-
-    Node *rest_head = revList(head->next);
-    Node *rest_tail = head->next;
-    rest_tail->next = head;
-    head->next = NULL;
-    return rest_head;
 }
 
 int main()
 {
     Node *head = new Node(10);
     head->next = new Node(20);
-    head->next->next = new Node(30);
+    head->next->next = new Node(20);
     head->next->next->next = new Node(40);
-    Node *res = revList(head);
-    printList(res);
+    RemoveDupli(head);
+    printList(head);
     return 0;
 }
