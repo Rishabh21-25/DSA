@@ -15,7 +15,7 @@ struct myStack
     }
     void push(int x)
     {
-        if (top == cap - 1)
+        if (top == cap)
         {
             cout << "Stack is full !";
         }
